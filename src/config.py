@@ -76,10 +76,21 @@ class RetrievalConfig(BaseSettings):
     model_config = SettingsConfigDict(env_prefix="RETRIEVAL_", extra="ignore")
 
 
+class CORSConfig(BaseSettings):
+    enabled: bool = True
+    allow_origins: list[str] = ["*"]
+    allow_credentials: bool = True
+    allow_methods: list[str] = ["*"]
+    allow_headers: list[str] = ["*"]
+
+    model_config = SettingsConfigDict(extra="ignore")
+
+
 class ServerConfig(BaseSettings):
     host: str = "0.0.0.0"
     port: int = 8000
     reload: bool = False
+    cors: CORSConfig = CORSConfig()
 
     model_config = SettingsConfigDict(env_prefix="SERVER_", extra="ignore")
 

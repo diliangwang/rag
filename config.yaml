@@ -46,3 +46,12 @@ server:
   host: 0.0.0.0
   port: 8000
   reload: false
+  cors:
+    enabled: true
+    allow_origins:
+      - "*"
+    allow_credentials: true
+    allow_methods:
+      - "*"
+    allow_headers:
+      - "*"

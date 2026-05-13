@@ -6,6 +6,7 @@ from typing import Optional
 
 from openai import OpenAIError
 from fastapi import FastAPI, File, HTTPException, Request, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from src.chat.qa_chain import QAChain
@@ -25,6 +26,26 @@ app = FastAPI(
 _settings: Settings | None = None
 _store: VectorStore | None = None
 _qa: QAChain | None = None
+_cors_configured: bool = False
+
+
+def _configure_cors(settings: Settings) -> None:
+    """根据配置注册 CORS 中间件。"""
+    global _cors_configured
+    if _cors_configured:
+        return
+    cors_config = settings.server.cors
+    if not cors_config.enabled:
+        _cors_configured = True
+        return
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=cors_config.allow_origins,
+        allow_credentials=cors_config.allow_credentials,
+        allow_methods=cors_config.allow_methods,
+        allow_headers=cors_config.allow_headers,
+    )
+    _cors_configured = True
 
 
 def get_settings() -> Settings:
@@ -32,6 +53,10 @@ def get_settings() -> Settings:
     if _settings is None:
         _settings = Settings.from_yaml("config.yaml")
     return _settings
+
+
+# 模块导入时注册 CORS 中间件
+_configure_cors(get_settings())
 
 
 def get_store() -> VectorStore:
