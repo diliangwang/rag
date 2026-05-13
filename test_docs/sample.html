@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><title>RAG 系统概述</title></head>
+<body>
+<h1>RAG 系统概述</h1>
+
+<p>检索增强生成（RAG）是一种将信息检索与文本生成相结合的技术。</p>
+
+<h2>工作原理</h2>
+<ul>
+  <li>用户提出问题</li>
+  <li>系统从知识库中检索相关文档片段</li>
+  <li>将检索结果作为上下文提供给大语言模型</li>
+  <li>LLM 基于上下文生成准确回答</li>
+</ul>
+
+<h2>技术栈</h2>
+<table>
+  <tr><th>组件</th><th>技术</th></tr>
+  <tr><td>向量存储</td><td>ChromaDB</td></tr>
+  <tr><td>嵌入模型</td><td>OpenAI / 通义千问</td></tr>
+  <tr><td>LLM</td><td>GPT-4o / Qwen</td></tr>
+</table>
+</body>
+</html>

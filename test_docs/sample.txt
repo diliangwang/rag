@@ -1,0 +1,24 @@
+LangChain RAG 系统使用指南
+
+安装依赖：
+1. 确保 Python 版本 >= 3.12
+2. 使用 uv 管理依赖：uv sync
+3. 配置环境变量：复制 .env.example 为 .env，填写 API 密钥
+
+导入文档：
+1. 使用 CLI 命令：rag ingest <file_path>
+2. 支持 PDF、TXT、Markdown、DOCX 格式
+3. 文档会自动分割并存入向量库
+
+提问：
+1. 单轮问答：rag ask "你的问题"
+2. 多轮对话：rag chat
+3. API 调用：POST /ask
+
+配置文件 config.yaml 说明：
+- llm: 大语言模型配置（provider, model, temperature）
+- embedding: 嵌入模型配置
+- vector_store: 向量存储配置（持久化路径）
+- ingestion: 文档导入配置（分块大小）
+- retrieval: 检索配置（返回数量）
+- server: API 服务配置（端口）
